@@ -193,9 +193,6 @@ function render(data) {
   list.innerHTML = str;
 }
 
-const edit=document.querySelector(".edit");
-const checkbook=document.querySelector(".checkbook");
-
 list.addEventListener("click", (e) => {
   let id = e.target.closest("li").dataset.id;
   let index = data.findIndex((item) => item.id == id);
