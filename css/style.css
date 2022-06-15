@@ -311,6 +311,14 @@ input[type="text"]::placeholder {
   background-size: contain;
 }
 
+@media (max-width: 575px) {
+  .list li a.update {
+    opacity: 1;
+    width: 12px;
+    height: 12px;
+  }
+}
+
 .list li:hover a.update {
   opacity: 1;
 }
