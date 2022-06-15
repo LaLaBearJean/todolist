@@ -204,7 +204,7 @@ list.addEventListener("click", (e) => {
         console.log(res)
       })
       .catch(error => console.log(error.response)) 
-  }else if(e.target.classList.contains("update")){
+  }else if(e.target.getAttribute("class") == "update" ){
     e.preventDefault();
   }else if(e.target.nodeName == "INPUT") {
     axios.patch(`${apiUrl}/todos/${id}/toggle`,{})
