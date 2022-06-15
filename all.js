@@ -167,10 +167,7 @@ function addTodo(){
       txt.value = "";
       getTodo();
       tabStatus="all";
-      toggleTab();
-      // updateList();
-      // localStorage.setItem("listData",JSON.stringify(data));
-      
+      toggleTab();      
       console.log(res)})
   .catch(error => console.log(error.response))
 }
