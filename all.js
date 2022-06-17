@@ -188,7 +188,7 @@ function render(data) {
               <input type="text" value="${item.content}" class="edit" />
             </div>           
           </label>
-          <a href="#" class="update fa-solid fa-pen"></a>
+          <a href="#" class="update"></a>
           <a href="#" class="delete"></a>
         </li>`;
   });
