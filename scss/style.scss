@@ -187,6 +187,7 @@ input[type="text"] {
       display: block;
       width: 1rem;
       height: 1rem;
+      background-image: url("../img/pen.png");
       background-size: contain;
       @include mobile {
         opacity: 1;
@@ -222,7 +223,7 @@ input[type="text"] {
   display: block;
   padding-left: 44px;
   cursor: pointer;
-  span {
+  div {
     display: block;
     padding: 1rem 0;
     border-bottom: 1px solid #eee;
@@ -230,8 +231,11 @@ input[type="text"] {
     @include mobile {
       padding-right: 1rem;
     }
+    input[type="text"].edit-box{
+      border:1;
+    }
   }
-  input {
+  input[type="checkbox"] {
     position: absolute;
     top: 0;
     left: 0;
@@ -242,7 +246,7 @@ input[type="text"] {
     width: 100%;
     margin: 0;
   }
-  span::before {
+  div::before {
     content: "";
     position: absolute;
     left: 0.5rem;
@@ -255,7 +259,7 @@ input[type="text"] {
     pointer-events: none;
     transition: 0.3s ease;
   }
-  span::after {
+  div::after {
     content: "";
     position: absolute;
     left: 14px;
@@ -270,16 +274,16 @@ input[type="text"] {
     opacity: 0;
     transition: 0.3s ease;
   }
-  input:checked {
-    ~ span {
+  input[type="checkbox"]:checked {
+    ~ div input[type="text"] {
       color: $gray;
       text-decoration: line-through;
     }
-    ~ span::before {
+    ~ div::before {
       border-color: transparent;
       transform: translateY(-50%) scale(0);
     }
-    ~ span::after {
+    ~ div::after {
       opacity: 1;
     }
   }

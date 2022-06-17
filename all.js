@@ -184,7 +184,9 @@ function render(data) {
     str += `<li data-id="${item.id}">
           <label class="checkbox" for="">
             <input type="checkbox" ${ready}/>
-            <span>${item.content}</span>            
+            <div>
+              <input type="text" value="${item.content}" class="edit" />
+            </div>           
           </label>
           <a href="#" class="update fa-solid fa-pen"></a>
           <a href="#" class="delete"></a>
@@ -206,6 +208,17 @@ list.addEventListener("click", (e) => {
       .catch(error => console.log(error.response)) 
   }else if(e.target.getAttribute("class") == "update" ){
     e.preventDefault();
+    const edit=document.getElementsByTagName("input");
+    let str;
+    for(let i=0;i<edit.length;i++){
+      var status = edit[i].getAttribute("class");
+      if(status == "edit"){
+        if(edit[i].closest("li").dataset.id == id){
+          str=edit[i];
+        }
+      }
+    }
+    str.classList.add("edit-box");
   }else if(e.target.nodeName == "INPUT") {
     axios.patch(`${apiUrl}/todos/${id}/toggle`,{})
       .then(res => {
