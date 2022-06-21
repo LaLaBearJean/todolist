@@ -303,18 +303,14 @@ input[type=text]::placeholder {
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
   line-height: 1.5;
-  width: 85%;
-}
-.checkbox div.edit {
-  border: 1px solid #000;
 }
 @media (max-width: 575px) {
   .checkbox div {
     padding-right: 1rem;
   }
 }
-.checkbox div input[type=text]:disabled {
-  background-color: #fff;
+.checkbox div input[type=text].edit-box {
+  border: 1px solid #000;
 }
 .checkbox input[type=checkbox] {
   position: absolute;
@@ -324,7 +320,7 @@ input[type=text]::placeholder {
   cursor: pointer;
   display: block;
   height: 100%;
-  width: 85%;
+  width: 100%;
   margin: 0;
 }
 .checkbox div::before {

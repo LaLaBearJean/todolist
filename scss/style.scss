@@ -228,11 +228,15 @@ input[type="text"] {
     padding: 1rem 0;
     border-bottom: 1px solid #eee;
     line-height: 1.5;
+    width: 85%;
+    &.edit{
+      border:1px solid #000;
+    }
     @include mobile {
       padding-right: 1rem;
     }
-    input[type="text"].edit-box{
-      border:1;
+    input[type="text"]:disabled{
+      background-color: #fff;
     }
   }
   input[type="checkbox"] {
@@ -243,7 +247,7 @@ input[type="text"] {
     cursor: pointer;
     display: block;
     height: 100%;
-    width: 100%;
+    width: 85%;
     margin: 0;
   }
   div::before {

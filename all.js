@@ -121,7 +121,6 @@ logout.addEventListener("click",(e) => {
       console.log(res)
     })      
     .catch(error => {
-      console.log(123);
       console.log(error.response)
     });
 })
@@ -185,7 +184,7 @@ function render(data) {
           <label class="checkbox" for="">
             <input type="checkbox" ${ready}/>
             <div>
-              <input type="text" value="${item.content}" class="edit" />
+              <input type="text" value="${item.content}" disabled />
             </div>           
           </label>
           <a href="#" class="update"></a>
@@ -202,24 +201,38 @@ list.addEventListener("click", (e) => {
     e.preventDefault();
     axios.delete(`${apiUrl}/todos/${id}`)
       .then(res => {
+        tabStatus="all";
+        toggleTab();
         getTodo();
         console.log(res)
       })
       .catch(error => console.log(error.response)) 
   }else if(e.target.getAttribute("class") == "update" ){
     e.preventDefault();
-    const edit=document.getElementsByTagName("input");
+    const checkbox = e.target.parentElement.firstChild.nextSibling.children[0];
+    const edit = e.target.parentElement.firstChild.nextSibling.children[1];
     let str;
-    for(let i=0;i<edit.length;i++){
-      var status = edit[i].getAttribute("class");
-      if(status == "edit"){
-        if(edit[i].closest("li").dataset.id == id){
-          str=edit[i];
-        }
-      }
+    if(edit.classList.contains('edit')){
+      edit.classList.remove('edit');
+      checkbox.style.zIndex = '1'; 
+      str=edit.children[0].value;
+      axios.put(`${apiUrl}/todos/${id}`,{
+        "todo": {
+          "content": str
+        }           
+      })
+        .then(res => {
+          getTodo();
+          console.log(res)
+        })
+        .catch(error => console.log(error.response))
+    }else{
+      edit.classList.add('edit');
+      edit.children[0].disabled = false;      
+      checkbox.checked = false; 
+      checkbox.style.zIndex = '-1';
     }
-    str.classList.add("edit-box");
-  }else if(e.target.nodeName == "INPUT") {
+  }else if(e.target.getAttribute("type") == "checkbox") {
     axios.patch(`${apiUrl}/todos/${id}/toggle`,{})
       .then(res => {
         getTodo();
@@ -284,18 +297,4 @@ deleteItem.addEventListener("click",(e) =>{
       }) 
   })
 })
-
-
-
-
-
-function updateTodo(content,todoId){
-  axios.put(`${apiUrl}/todos/${todoId}`,{
-    "todo": {
-      "content": content
-    }
-  })
-  .then(res => console.log(res))
-  .catch(error => console.log(error.response))
-}
 
