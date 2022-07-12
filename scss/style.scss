@@ -300,6 +300,8 @@ body.fontPage{
   max-width: 800px;
   margin: 100px auto 0 auto;
   display: flex;
+  justify-content: center;
+  align-items: center;
   @include mobile{
     display:block;
     margin-top: 30px;
@@ -309,6 +311,7 @@ body.fontPage{
     margin:0 5%;
     @include mobile{
       width: 100%;
+      margin: 0;
     }
     h3{
       margin-bottom: 10px;
@@ -325,7 +328,7 @@ body.fontPage{
   }
   .info{
     width: 40%;
-    margin:auto 5%;
+    margin: 0 5%;
     font-weight: bold;
     @include mobile{
       width: 80%;
@@ -348,6 +351,7 @@ body.fontPage{
       width: 100%;
       padding: 10px;
       border-radius: 5px;
+      border: 2px inset rgb(118, 118, 118);
     }
     span{
       color: red;

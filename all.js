@@ -1,5 +1,5 @@
 const apiUrl="https://todoo.5xcamp.us";
-let data=JSON.parse(localStorage.getItem("listData")) || [];
+let data=[];
 
 const empty=document.querySelector(".empty");
 const cardList=document.querySelector(".card_list");
@@ -15,6 +15,17 @@ const signUp=document.querySelector(".signUp");
 const logIn=document.querySelector(".login");
 const todoList=document.querySelector(".todoList");
 const nickname=document.getElementById("nickname");
+
+if (localStorage.getItem('token')) {
+  body.classList.remove("fontPage");
+  body.classList.add("todolist");
+  todoList.classList.remove("none");
+  logIn.classList.add("none");
+  axios.defaults.headers.common['Authorization']=localStorage.getItem("token");
+  nickname.textContent=localStorage.getItem("nickname");
+  getTodo();
+}
+
 loginWeb.addEventListener("click", e => {
   e.preventDefault();
   signUp.classList.add("none");
@@ -56,6 +67,8 @@ function callSignup(){
     nickname.textContent=res.data.nickname;
     console.log(res);
     axios.defaults.headers.common['Authorization']=res.headers.authorization;
+    localStorage.setItem("token",res.headers.authorization);
+    localStorage.setItem("nickname",res.data.nickname);
     getTodo();
   })
   .catch(error => console.log(error.response));
@@ -74,10 +87,18 @@ loginBtn.addEventListener("click",() => {
   callLogin();
 })
 function callLogin(){
+  const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  const reg = new RegExp(/^\d{6,}$/);
   if(loginEmail.value.trim()=="" || loginPassword.value.trim()==""){
     alert('請輸入正確資料');
     return
-    }
+  }else if(!regex.test(loginEmail.value)){
+    alert('請輸入正確email格式');
+    return
+  }else if(!reg.test(loginPassword.value)){
+    alert('密碼小於6位數');
+    return
+  };
   let obj={
     email:loginEmail.value,
     password:loginPassword.value
@@ -87,7 +108,6 @@ function callLogin(){
   })
   .then(res => {
     axios.defaults.headers.common['Authorization']=res.headers.authorization;
-    token=res.headers.authorization;
     alert("登入成功");
     body.classList.remove("fontPage");
     body.classList.add("todolist");
@@ -96,6 +116,8 @@ function callLogin(){
     nickname.textContent=res.data.nickname;
     loginEmail.value='';
     loginPassword.value='';
+    localStorage.setItem("token",res.headers.authorization);
+    localStorage.setItem("nickname",res.data.nickname);
     console.log(res);
       getTodo();   
   })
@@ -118,6 +140,8 @@ logout.addEventListener("click",(e) => {
       todoList.classList.add("none");
       logIn.classList.remove("none");
       axios.defaults.headers.common['Authorization']  = "";
+      localStorage.removeItem("token");
+      localStorage.removeItem("nickname");
       console.log(res)
     })      
     .catch(error => {
@@ -137,7 +161,6 @@ function getTodo(){
       empty.classList.add("none");
       cardList.classList.remove("none");
     }
-    localStorage.setItem("listData",JSON.stringify(data));
     updateList();
     console.log(res);
   })
@@ -196,7 +219,6 @@ function render(data) {
 
 list.addEventListener("click", (e) => {
   let id = e.target.closest("li").dataset.id;
-  let index = data.findIndex((item) => item.id == id);
   if (e.target.getAttribute("class") == "delete") {
     e.preventDefault();
     axios.delete(`${apiUrl}/todos/${id}`)
@@ -292,7 +314,6 @@ deleteItem.addEventListener("click",(e) =>{
         console.log(res)
       })
       .catch(error => {
-        console.log(111);
         console.log(error.response);
       }) 
   })

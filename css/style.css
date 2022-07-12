@@ -375,6 +375,8 @@ body.fontPage {
   max-width: 800px;
   margin: 100px auto 0 auto;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (max-width: 575px) {
   .page {
@@ -389,6 +391,7 @@ body.fontPage {
 @media (max-width: 575px) {
   .page .image {
     width: 100%;
+    margin: 0;
   }
 }
 .page .image h3 {
@@ -407,7 +410,7 @@ body.fontPage {
 }
 .page .info {
   width: 40%;
-  margin: auto 5%;
+  margin: 0 5%;
   font-weight: bold;
 }
 @media (max-width: 575px) {
@@ -435,6 +438,7 @@ body.fontPage {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
+  border: 2px inset rgb(118, 118, 118);
 }
 .page .info span {
   color: red;
