@@ -36,7 +36,7 @@ signupBtn.addEventListener("click",() => {
 });
 function callSignup(){
   const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  const reg = new RegExp(/^\d{6,}$/);
+  const reg = new RegExp(/^\w{6,}$/);
   if(signupAccount.value.trim()=="" || signupNickname.value.trim()=="" || signupPassword.value.trim()=="" || checkPassword.value.trim()==""){
     alert('請輸入正確資料');
     return
@@ -47,7 +47,7 @@ function callSignup(){
     alert('密碼不正確');
     return
   }else if(!reg.test(signupPassword.value)){
-    alert('密碼小於6位數');
+    alert('密碼小於6位數或輸入的密碼並非全由數字組成');
     return
   };
   let obj={
@@ -88,7 +88,7 @@ loginBtn.addEventListener("click",() => {
 })
 function callLogin(){
   const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  const reg = new RegExp(/^\d{6,}$/);
+  const reg = new RegExp(/^\w{6,}$/);
   if(loginEmail.value.trim()=="" || loginPassword.value.trim()==""){
     alert('請輸入正確資料');
     return
@@ -96,7 +96,7 @@ function callLogin(){
     alert('請輸入正確email格式');
     return
   }else if(!reg.test(loginPassword.value)){
-    alert('密碼小於6位數');
+    alert('密碼小於6位數或輸入的密碼並非全由數字組成');
     return
   };
   let obj={
